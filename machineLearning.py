@@ -5,26 +5,8 @@ import matplotlib.pyplot as plt
 
 
 
-
+#test 2
 #test
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 """
 speed = [99,86,87,88,111,86,103,87,94,78,77,85,86]
