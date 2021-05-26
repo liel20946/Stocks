@@ -1,39 +1,51 @@
-import sys
 import numpy as np
 from scipy import stats
-import matplotlib.pyplot as plt
 import yfinance as yf
 import pandas as pd
+import plotly.graph_objs as go
 
 
-tickerSymbol = "AMZN"
+#data = yf.download(tickers='AMZN', period='1y', interval='1h') #IN CASE WE WANT TO CHANGE THE INTERVAL CAN BE USED THAT WAY
 
-# Choose date range - format should be 'YYYY-MM-DD' 
+tickerData = yf.Ticker('AMZN')
 startDate = '2015-04-01' # as strings
 endDate = '2021-05-25' # as strings
 
-# Create ticker yfinance object
-tickerData = yf.Ticker(tickerSymbol)
-
 # Create historic data dataframe and fetch the data for the dates given. 
-df = tickerData.history(start = startDate, end = endDate)
+data= tickerData.history(start = startDate, end = endDate)
 
-# Print statement showing the download is done
+#declare figure
+fig = go.Figure()
 
-# Show what the first 5 rows of the data frame
-# Note the dataframe has:
-#   - Date (YYY-MM-DD) as an index
-#   - Open (price the stock started as)
-#   - High (highest price stock reached that day)
-#   - Low (lowest price stock reached that day)
-#   - Close (price the stock ended the day as)
-#   - Volume (how many shares were traded that day)
-#   - Dividends (any earnings shared to shareholders)
-#   - Stock Splits (any stock price changes)
+#Candlestick
+fig.add_trace(go.Candlestick(x=data.index,
+                open=data['Open'],
+                high=data['High'],
+                low=data['Low'],
+                close=data['Close'], name = 'market data'))
 
-print('-----------------------')
-print('Done!')
-print(df.head())
+# Add titles
+fig.update_layout(
+    title='Uber live share price evolution',
+    yaxis_title='Stock Price (USD per Shares)')
+
+# X-Axes
+fig.update_xaxes(
+    rangeslider_visible=True,
+    rangeselector=dict(
+        buttons=list([
+            dict(count=6, label=" 6m", step="month", stepmode="backward"),
+            dict(count=1, label="1m", step="month", stepmode="backward"),
+            dict(count=7, label="week", step="day", stepmode="backward"),
+            dict(step="all")
+        ])
+    )
+)
+
+#Show
+fig.show()
+
+#print(df.head())
 
 
 
