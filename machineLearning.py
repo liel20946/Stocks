@@ -87,8 +87,8 @@ print(isLeak(df_shape, train_shape, test_shape))
 # Creating a data structure with 60 time-steps and 1 output
 X_train = []
 y_train = []
-for i in range(60, 800):
-    X_train.append(train_data[i-50:i])
+for i in range(120, 800):
+    X_train.append(train_data[i-120:i])
     y_train.append(train_data[i])
 X_train, y_train = np.array(X_train), np.array(y_train)
 X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
@@ -124,8 +124,8 @@ inputs = dataset_total[len(dataset_total) - len(dataset_test) - 60:].values
 inputs = inputs.reshape(-1,1)
 inputs = scaler.transform(inputs)
 X_test = []
-for i in range(60, 519):
-    X_test.append(inputs[i-50:i, 0])
+for i in range(120, 519):
+    X_test.append(inputs[i-120:i, 0])
 X_test = np.array(X_test)
 X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
 print(X_test.shape)
