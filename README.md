@@ -1,2 +1,1 @@
 # Stocks
-stock marker preditions
